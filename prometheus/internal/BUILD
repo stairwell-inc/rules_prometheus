@@ -9,11 +9,13 @@ package(
 )
 
 exports_files(
-    glob([
-        "*.bat",
-        "*.sh",
-        "*.sh.tpl",
-    ]),
+    glob(
+        [
+            # "*.bat", # Unused.
+            "*.sh",
+            "*.sh.tpl",
+        ],
+    ),
     visibility = ["//visibility:public"],
 )
 
