@@ -1,4 +1,4 @@
-load("@io_bazel_rules_prometheus//prometheus:defs.bzl", "promtool_config_test", "promtool_rules_test", "promtool_unit_test")
+load("@io_bazel_rules_prometheus//prometheus:defs.bzl", "promtool_config_test", "promtool_rules_test", "promtool_unit_test", "amtool_config_test")
 
 promtool_unit_test(
     name = "unit_test_rules_yml",
@@ -64,6 +64,11 @@ promtool_rules_test(
     ],
 )
 
+amtool_config_test(
+    name = "test_amtool_config",
+    config = ":amconfig.yml",
+)
+
 test_suite(
     name = "all_tests",
     tests = [
@@ -76,5 +81,6 @@ test_suite(
         ":unit_test_rules_json",
         ":unit_test_rules_multiple_mixed",
         ":unit_test_rules_yml",
+        ":test_amtool_config",
     ],
 )

@@ -30,7 +30,13 @@ AmtoolStubInfo = provider(
         # "template": "Template script that will be filled with execution details",
     },
 )
-AmtoolInfo = AmtoolStubInfo
+AmtoolInfo = provider(
+    doc = "Amtool metadata provider",
+    fields = {
+        "tool": "Amtool label",
+        "template": "Template script that will be filled with execution details",
+    },
+)
 
 PrometheusPlatformsInfo = provider(
     # this should store os-arch combinations for toolchain generation

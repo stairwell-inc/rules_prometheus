@@ -10,6 +10,7 @@ package(
 analysis_test(
     name = "test_tools_analysed",
     targets = [
+        "@io_bazel_rules_prometheus//:amtool",
         "@io_bazel_rules_prometheus//:promtool",
         "@io_bazel_rules_prometheus//:prom",
         "@io_bazel_rules_prometheus//prometheus:defs",
@@ -19,6 +20,7 @@ analysis_test(
 build_test(
     name = "test_main_tools_building",
     targets = [
+        "@io_bazel_rules_prometheus//:amtool",
         "@io_bazel_rules_prometheus//:promtool",
         "@io_bazel_rules_prometheus//:prom",
         "@io_bazel_rules_prometheus//prometheus:defs",

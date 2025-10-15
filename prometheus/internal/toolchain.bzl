@@ -26,7 +26,10 @@ def _prometheus_toolchain_impl(ctx):
                     tool = ctx.attr.promtool,
                     template = ctx.attr.promtool_executor_template,
                 ),
-                amtool = AmtoolInfo(),
+                amtool = AmtoolInfo(
+                    tool = ctx.attr.amtool,
+                    template = ctx.attr.amtool_executor_template,
+                ),
                 alertmanager = AlertmanagerInfo(),
             ),
         ),
@@ -38,9 +41,11 @@ prometheus_toolchain = rule(
     attrs = {
         # explanation on cfg https://docs.bazel.build/versions/main/skylark/rules.html#configurations
         "prometheus": attr.label(mandatory = True, allow_single_file = True, executable = True, cfg = "exec"),
+        "prometheus_executor_template": attr.label(mandatory = True, allow_single_file = True),
         "promtool": attr.label(mandatory = True, allow_single_file = True, executable = True, cfg = "exec"),
         "promtool_executor_template": attr.label(mandatory = True, allow_single_file = True),
-        "prometheus_executor_template": attr.label(mandatory = True, allow_single_file = True),
+        "amtool": attr.label(mandatory = True, allow_single_file = True, executable = True, cfg = "exec"),
+        "amtool_executor_template": attr.label(mandatory = True, allow_single_file = True),
     },
     provides = [platform_common.ToolchainInfo],
 )
@@ -62,9 +67,11 @@ def declare_toolchains(name = "declare_toolchains", _prometheus_package_info = D
         prometheus_toolchain(
             name = "prometheus_{platform}".format(platform = platform),
             prometheus = "@prometheus_{platform}//:prometheus".format(platform = platform),
+            prometheus_executor_template = "@io_bazel_rules_prometheus//prometheus/internal:prometheus.sh.tpl",
             promtool = "@prometheus_{platform}//:promtool".format(platform = platform),
             promtool_executor_template = "@io_bazel_rules_prometheus//prometheus/internal:promtool.sh.tpl",
-            prometheus_executor_template = "@io_bazel_rules_prometheus//prometheus/internal:prometheus.sh.tpl",
+            amtool = "@alertmanager_{platform}//:amtool".format(platform = platform),
+            amtool_executor_template = "@io_bazel_rules_prometheus//prometheus/internal:amtool.sh.tpl",
 
             # https://docs.bazel.build/versions/main/be/common-definitions.html#common.tags
             # exclude toolchain from expanding on wildcard

@@ -1,0 +1,64 @@
+global:
+  slack_api_url: https://hooks.slack.com/services/deadbeef/feedface/nZbase64StuffgoesHere
+  resolve_timeout: 60m
+templates:
+route:
+  group_by: ['alertname', 'cluster', 'service']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  receiver: slack-alerts
+  routes:
+  - matchers:
+    - name="WeeklyPage"
+    receiver: oncall-pager
+    repeat_interval: 167h
+  - matchers:
+    - severity="slack"
+    receiver: slack-alerts
+  - matchers:
+    - severity="page"
+    routes:
+    - matchers:
+      - scope="workday"
+      active_time_intervals:
+        - working-hours
+      receiver: oncall-pager
+    - matchers:
+      - scope="day"
+      active_time_intervals:
+        - waking-hours
+      receiver: oncall-pager
+    receiver: oncall-pager
+receivers:
+- name: slack-alerts
+  slack_configs:
+  - channel: alerts
+    send_resolved: true
+    icon_url: https://example.com/images/slack-icon.svg
+    title: |-
+      [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }}
+    text: >-
+      {{ range .Alerts -}}
+      *Alert:* {{ .Annotations.summary }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+
+      *Description:* {{ .Annotations.description }}
+      {{ end }}
+- name: oncall-pager
+  pagerduty_configs:
+  - routing_key: someBase64apiKey
+inhibit_rules:
+time_intervals:
+- name: working-hours
+  time_intervals:
+  - times:
+    - start_time: '16:00' # 10am CDT, 9am CST
+      end_time: '24:00' # 6pm CDT, 5pm CST
+  - weekdays: ['monday:friday']
+- name: waking-hours
+  time_intervals:
+  - times:
+    - start_time: '15:00' # 8am PDT, 7am PST
+      end_time: '24:00'
+    - start_time: '00:00'
+      end_time: '04:00' # 9pm PDT, 8pm PST
