@@ -6,6 +6,8 @@ load(
     "@io_bazel_rules_prometheus//prometheus/internal:amtool.bzl",
     _amtool = "amtool",
     _amtool_config_test = "amtool_config_test",
+    _amtool_routes_test = "amtool_routes_test",
+    _amtool_routes_multi_test = "amtool_routes_multi_test",
 )
 load(
     "@io_bazel_rules_prometheus//prometheus/internal:promtool.bzl",
@@ -25,6 +27,8 @@ load(
 
 amtool = _amtool
 amtool_config_test = _amtool_config_test
+amtool_routes_test = _amtool_routes_test
+amtool_routes_multi_test = _amtool_routes_multi_test
 prometheus_toolchains = _prometheus_toolchains
 prometheus_repositories = _prometheus_repositories
 promtool_unit_test = _promtool_unit_test
