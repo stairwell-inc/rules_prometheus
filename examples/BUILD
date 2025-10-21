@@ -73,13 +73,13 @@ amtool_routes_test(
     name = "test_amtool_routes",
     config = ":amconfig.yml",
     labels = ["severity=page"],
-    receivers = ["oncall-pager"],
+    receiver = "oncall-pager",
 )
 
 amtool_routes_multi_test(
     name = "multi_test_amtool_routes",
     config = ":amconfig.yml",
-    labels_to_receivers = {
+    labels_to_receiver = {
         "name=WeeklyPage": "oncall-pager",
         "severity=page": "oncall-pager",
         "severity=slack": "slack-alerts",

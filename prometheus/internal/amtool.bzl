@@ -152,7 +152,7 @@ def _amtool_routes_test_impl(ctx):
       is_executable = True,
       substitutions = {
         "%tool_path%": str(amtool_info.tool.files_to_run.executable.short_path),
-        "%action%": ctx.attr._action + " --config.file=" + ctx.file.config.short_path + " --verify.receivers=\"" + " ".join(ctx.attr.receivers) + "\" --tree",
+        "%action%": ctx.attr._action + " --config.file=" + ctx.file.config.short_path + " --verify.receivers=\"" + ctx.attr.receiver + "\" --tree",
         "%srcs%": " ".join(ctx.attr.labels),
       },
     )
@@ -161,7 +161,7 @@ def _amtool_routes_test_impl(ctx):
 amtool_routes_test = rule(
     implementation = _amtool_routes_test_impl,
     doc = """
-Run "amtool config routes test" on a configuration, using labels and expected receivers.
+Run "amtool config routes test" on a configuration, using labels and an expected receiver.
 
 Example:
 ```
@@ -172,7 +172,7 @@ amtool_routes_test(
     name = "routes_test",
     config = ":config.yaml",
     labels = ["severity=page"],
-    receivers = ["oncall-pager"],
+    receiver = "oncall-pager",
 )
 ```
 
@@ -195,16 +195,16 @@ bazel test //examples:routes_test
             mandatory = True,
             doc = "The alert labels against which to test",
         ),
-        "receivers": attr.string_list(
+        "receiver": attr.string(
             mandatory = True,
-            doc = "The expected receivers the provided labels should match to",
+            doc = "The expected receiver the provided labels should match to",
         ),
     },
     toolchains = ["@io_bazel_rules_prometheus//prometheus:toolchain"],
 )
 
-def amtool_routes_multi_test(name, config, labels_to_receivers):
-    """Macro wrapping amtool_routes_test, allowing easy construction of tests asserting that alerts with a set of labels resolve to expected receiver(s).
+def amtool_routes_multi_test(name, config, labels_to_receiver):
+    """Macro wrapping amtool_routes_test, allowing easy construction of tests asserting that alerts with a set of labels resolve to expected receiver.
 
     Example:
 
@@ -212,10 +212,10 @@ def amtool_routes_multi_test(name, config, labels_to_receivers):
     amtool_routes_multi_test(
         name = "multi_test_amtool_routes",
         config = ":amconfig.yml",
-        labels_to_receivers = {
+        labels_to_receiver = {
             "severity=page": "oncall-pager",
+            "severity=catastrophe": "fires",
             "severity=page scope=workday": "slack-alerts",
-            "severity=catastrophe": "fires oncall-pager slack-alerts",
         }
     )
     ```
@@ -223,12 +223,12 @@ def amtool_routes_multi_test(name, config, labels_to_receivers):
     Args:
       name: A unique name prefix for the tests generated.
       config: The alertmanager config against which to test.
-      labels_to_receivers: A dictionary mapping a set of labels to the expected set of receivers. The key should be a string of label=value pairs, space separated. The value should be space-separated receiver names, in the expected resolution order.
+      labels_to_receiver: A dictionary mapping a set of labels to the expected receiver. The key should be a string of label=value pairs, space separated. The value should be a single receiver name.
     """
-    for i, (labels, receivers) in enumerate(labels_to_receivers.items()):
+    for i, (labels, receiver) in enumerate(labels_to_receiver.items()):
         amtool_routes_test(
             name = "{}_{}".format(name, i),
             labels = labels.split(" "),
-            receivers = receivers.split(" "),
+            receiver = receiver,
             config = config,
         )
