@@ -1,4 +1,4 @@
-load("@io_bazel_rules_prometheus//prometheus:defs.bzl", "promtool_config_test", "promtool_rules_test", "promtool_unit_test", "amtool_config_test")
+load("@io_bazel_rules_prometheus//prometheus:defs.bzl", "promtool_config_test", "promtool_rules_test", "promtool_unit_test", "amtool_config_test", "amtool_routes_test", "amtool_routes_multi_test")
 
 promtool_unit_test(
     name = "unit_test_rules_yml",
@@ -69,6 +69,25 @@ amtool_config_test(
     config = ":amconfig.yml",
 )
 
+amtool_routes_test(
+    name = "test_amtool_routes",
+    config = ":amconfig.yml",
+    labels = ["severity=page"],
+    receiver = "oncall-pager",
+)
+
+amtool_routes_multi_test(
+    name = "multi_test_amtool_routes",
+    config = ":amconfig.yml",
+    labels_to_receiver = {
+        "name=WeeklyPage": "oncall-pager",
+        "severity=page": "oncall-pager",
+        "severity=slack": "slack-alerts",
+        "name=WeeklyPage severity=slack": "oncall-pager",
+        "foo=bar": "slack-alerts",
+    }
+)
+
 test_suite(
     name = "all_tests",
     tests = [
@@ -82,5 +101,6 @@ test_suite(
         ":unit_test_rules_multiple_mixed",
         ":unit_test_rules_yml",
         ":test_amtool_config",
+        ":test_amtool_routes",
     ],
 )
