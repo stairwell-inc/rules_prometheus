@@ -218,7 +218,7 @@ _DEFAULT_AVAILABLE_PROMETHEUS_BINARIES = {
     ("2.55.1", "windows-arm64"): "bcb0b61df6c9015574890859e8e6c9a81f04de3de3a6e0105226750c5755cdd8",
 }
 
-_DEFAULT_ALERTMANAGER_VERSION = "0.24.0"
+_DEFAULT_ALERTMANAGER_VERSION = "0.28.1"
 _DEFAULT_AVAILABLE_ALERTMANAGER_BINARIES = {
     ("0.21.0", "darwin-amd64"): "b508eb6f5d1b957abbee92f9c37deb99a3da3311572bed34357ac8acbb75e510",
     ("0.21.0", "dragonfly-amd64"): "8531f3b02d788df4fabe333dc75a558cd92c51c4c8280d5a27dbaa0efb390f66",
@@ -345,6 +345,41 @@ _DEFAULT_AVAILABLE_ALERTMANAGER_BINARIES = {
     ("0.24.0", "windows-386"): "334066ab1925dd9903c085b8ddabdbc569ed1dd7f0345e43113e612d656e2223",
     ("0.24.0", "windows-amd64"): "e73c1c93cca44bd7ca51f43737a6d55cd0d3bb9f2f982a9442bc02c143a1faaa",
     ("0.24.0", "windows-arm64"): "340a43c5549cd948b97106800a9e866cb61f22d8197afce0eb4ca4febb72c7f2",
+    ("0.28.1", "darwin-amd64"): "92c8a0e97d2a5e16952a58192e8316b7af6a03e20906346478724f2f9cf09741",
+    ("0.28.1", "darwin-arm64"): "6ad077f9de99fe96843a68313f19dd2dbc1e8929135293e48bb10824bd6b4df4",
+    ("0.28.1", "dragonfly-amd64"): "b808d5fdca002baf5bdeab4e0cc2f4e240f7b5d677d58811618273e325fd54da",
+    ("0.28.1", "freebsd-386"): "55513a319e7016a4e2f122ce0717343a61b57f04e433ca6a1d8daa00d5dfaff1",
+    ("0.28.1", "freebsd-amd64"): "eebe7e62342cefa9ba376eb49bf9df4d6dd82dae9334f5167a4bc5a3355a4af4",
+    ("0.28.1", "freebsd-arm64"): "47db525628745a09b955383e3d9491591a379fde6a4b03a0869208feeb05ec14",
+    ("0.28.1", "freebsd-armv6"): "a9633688bd7485d4dad87ef4a438f7ff8846eadccd264e7d45b073e213dd82d2",
+    ("0.28.1", "freebsd-armv7"): "5f87479e8e9661f5ec42a0672ebbcf400a713b589a893793d2defb45d565db79",
+    ("0.28.1", "illumos-amd64"): "77b312b57d16c25020437c73f559af755b6ac8e7d213860338f9c7e18f8c2592",
+    ("0.28.1", "linux-386"): "86d755edb5d26d26172355d2f83b1f19d10268d3df3cdedad9ff8335a392d917",
+    ("0.28.1", "linux-amd64"): "5ac7ab5e4b8ee5ce4d8fb0988f9cb275efcc3f181b4b408179fafee121693311",
+    ("0.28.1", "linux-arm64"): "d8832540e5b9f613d2fd759e31d603173b9c61cc7bb5e3bc7ae2f12038b1ce4f",
+    ("0.28.1", "linux-armv5"): "c0dd897cb39ce5d6701eb1c32f816154ba83f91ae1d8a7f0840276ba5739360e",
+    ("0.28.1", "linux-armv6"): "5878a78343450aa39c489cfd764f407b35b9d24161aeca86ae402a66bf8e4d9c",
+    ("0.28.1", "linux-armv7"): "2953e93c4f9ce5c63b19f64abc0cb175a5936a7302fd34acb2f87fd331d72387",
+    ("0.28.1", "linux-mips"): "b172583d60026ee7446ec2faa8d86264a3cac33012dc960339b0a11fd651269c",
+    ("0.28.1", "linux-mips64"): "85e55198bdb971f2ada16fa93df2919a0282d7fa028ac333c8f12665ba4a67ce",
+    ("0.28.1", "linux-mips64le"): "030c68998289174d8ad96d4b9b0bd4eea724ef933df1c4e8cac138ca3ef95d63",
+    ("0.28.1", "linux-mipsle"): "47e52375f1a09ca7226f066b7659ae7107f3c23e4c27bd234826d5d1dd101596",
+    ("0.28.1", "linux-ppc64"): "432738710d1e5c40af0e9b8bdc8e2e5f10860c8898d80db790a360287d96cda4",
+    ("0.28.1", "linux-ppc64le"): "9ac0c94d5f9fa4ef2e0a2a5116c7aff7f769b2cc7efe8165edf40782acc49811",
+    ("0.28.1", "linux-riscv64"): "dd489361415d619b34cd670a85f099697297a42dee22acbd0285ccd0406c54e4",
+    ("0.28.1", "linux-s390x"): "4e185ca997718218b7c5811c959bc0ba68b19582828b71b7653c791bb9be59ed",
+    ("0.28.1", "netbsd-386"): "8f3a950ce8891d83f48bbb6dade837dac0e1c20f95a47bd1df31158d0d979ead",
+    ("0.28.1", "netbsd-amd64"): "66e1b100dc20f000ff1f4a810c8995cbace792c31e654f83005cdc67e6c254e2",
+    ("0.28.1", "netbsd-arm64"): "e95cd75755e9baa3d902caea72a3769b56a51839ad0b583e8dfada6ba6e358f3",
+    ("0.28.1", "netbsd-armv6"): "9f4e6dfb92e939678bf0c516acfffc51dfdfeb82aedf137c0a64a6de15e1fd49",
+    ("0.28.1", "netbsd-armv7"): "e8082a96e7fc74178d449ae278460043db0fc2cadf5d1c46870029d1b2c92fe0",
+    ("0.28.1", "openbsd-386"): "3698460e0bdec0b979871f9e64f55dc27115f8c958fe4c789332ab515b93e61b",
+    ("0.28.1", "openbsd-amd64"): "319489715e7659312c34acd6474b44a84cfd16c815e04347f10e01b0d95306bc",
+    ("0.28.1", "openbsd-arm64"): "a7ee923c59001ab8c54146b1f10017063e3ca05252f95b5ac185e2064d5a02dd",
+    ("0.28.1", "openbsd-armv7"): "21ddc111e78623ed9bd3c20362e4318849e5b92325e040c559d500ff1103a93a",
+    ("0.28.1", "windows-386"): "5c6fb08e82394b42bfe400fe0fe70fe53f54ede220e73c5e54a723e44b5d3366",
+    ("0.28.1", "windows-amd64"): "fe97a59af88b9c8eb93b857ffe13f9e6bf8f9b240ee83e01df28bcc0c0a96800",
+    ("0.28.1", "windows-arm64"): "2bdde9494bd4d27e2f8c0ecf325789e94131212f1410498b5e9e6543b606c1c8",
 }
 
 _DEFAULT_PROMETHEUS_BINARY_INFO = PrometheusBinaryInfo(
